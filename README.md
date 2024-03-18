@@ -1,5 +1,5 @@
 # BrainRax
-BrainFuck Collection | high-level programming language, minifier, executer
+BrainFuck Collection | high-level programming language, minifier, optimizer
 
 - High Level Lang
   - Compiler
