@@ -54,7 +54,7 @@ export class Transpiler {
         }
 
         // finalize
-        transpiledCode += `a=[],p=0;`;
+        transpiledCode = transpiledCode.slice(0, -1);
 
         return this.transpiledMinify(transpiledCode);
     }
