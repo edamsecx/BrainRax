@@ -7,9 +7,9 @@ Created-by @amex2189
 - High Level Lang
   - Compiler
     - Parser
-    - **Minifiy**
-    - **Optimization**
   - Easy Syntax
+- **Minifiy**
+- **Optimization**
 
 ```asm
 # BrainRax
