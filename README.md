@@ -6,8 +6,9 @@ Created-by @amex2189
 
 - High Level Lang
   - Compiler
-    - Minifiy
-    - Optimization
+    - Parser
+    - **Minifiy**
+    - **Optimization**
   - Easy Syntax
 
 ```asm
