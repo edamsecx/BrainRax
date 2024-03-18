@@ -8,6 +8,7 @@ BrainFuck Collection | high-level programming language, minifier, executer
   - Easy Syntax
 
 ```asm
+# BrainRax
 str greet "Hello World"
 str exc "!"
 str text greet + exc
