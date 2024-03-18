@@ -1,4 +1,4 @@
-// RUNTIME
+// RUNTIME WIP
 
 export class Emulator {
   constructor(public source: string) {}
@@ -41,6 +41,7 @@ export class Emulator {
               await Bun.write(Bun.stdout, String.fromCharCode(..._m));
             }
           }
+          memory[ptr] = _m[0];  
           break;
         case "[":
           if (memory[ptr] === 0) {

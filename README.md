@@ -1,6 +1,7 @@
 # BrainRax
 
 BrainFuck Collection | high-level programming language, minifier, optimizer, emulator, transpiler
+on Bun
 
 Created-by @amex2189
 
