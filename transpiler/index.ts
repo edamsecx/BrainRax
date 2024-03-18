@@ -1,13 +1,5 @@
 import { Minifier } from "../minifier";
 
-const methodVarMap = {
-    memory: "m",
-    ptr: "p",
-    log: "l",
-    prompt: "r",
-    string: "s",
-};
-
 export class Transpiler {
     source: string = "";
 
@@ -15,36 +7,43 @@ export class Transpiler {
         this.source = new Minifier(source).safeSource.join("");
     }
 
-    async transpile() {
-        let transpiledCode = `/* Transpiled Code | by @EdamAme-x */;`;
+    transpile() {
+        let transpiledCode = `/* Transpiled Code | by @EdamAme-x */`;
+
+        const rawMemory = `a=[]`
+        const proxyMemory = `m=new Proxy(a,{get(e,t){return(t in e)?e[t]:e[t]=0}})`
+        const pointer = `p=0`
+        const logger = `l=console.log`
+        const reader = `r=prompt`
+        const stringer = `s=String.fromCharCode`
 
         // initialize memory and ptr
-        transpiledCode += `a=[];m=new Proxy(a,{get:function(e,t){if(t in e)return e[t];return e[t]=0;}});p=0;l=console.log;r=prompt;s=String.fromCharCode;`;
+        transpiledCode += `${[rawMemory, proxyMemory, pointer, logger, reader, stringer].join(",")};`;
 
         // transpile
         for (let i = 0; i < this.source.length; i++) {
             const expr = this.source[i];
             switch (expr) {
                 case ">":
-                    transpiledCode += `${methodVarMap.ptr}++;`;
+                    transpiledCode += `p++;`;
                     break;
                 case "<":
-                    transpiledCode += `${methodVarMap.ptr}--;`;
+                    transpiledCode += `p--;`;
                     break;
                 case "+":
-                    transpiledCode += `${methodVarMap.memory}[${methodVarMap.ptr}]++;`;
+                    transpiledCode += `m[p]++;`;
                     break;
                 case "-":
-                    transpiledCode += `${methodVarMap.memory}[${methodVarMap.ptr}]--;`;
+                    transpiledCode += `m[p]--;`;
                     break;
                 case ".":
-                    transpiledCode += `${methodVarMap.log}(${methodVarMap.string}(${methodVarMap.memory}[${methodVarMap.ptr}]));`;
+                    transpiledCode += `l(s(m[p]));`;
                     break;
                 case ",":
-                    transpiledCode += `${methodVarMap.memory}[${methodVarMap.ptr}]=${methodVarMap.prompt}().charCodeAt(0);`;
+                    transpiledCode += `m[p]=r().charCodeAt(0);`;
                     break;
                 case "[":
-                    transpiledCode += `while(${methodVarMap.memory}[${methodVarMap.ptr}]){`;
+                    transpiledCode += `while(m[p]){`;
                     break;
                 case "]":
                     transpiledCode += "}";
@@ -54,6 +53,61 @@ export class Transpiler {
             }
         }
 
-        return transpiledCode;
+        // finalize
+        transpiledCode += `a=[]`;
+
+        return this.transpiledMinify(transpiledCode);
+    }
+
+    transpiledMinify(transpliedCode: string): string {
+        // m[p]++;m[p]++; => m[p]+=2; m[p]++;x3 => m[p]+=3
+        while (!0) {
+            if (!transpliedCode.includes("m[p]++;m[p]++;")) {
+                break;
+            }else {
+                transpliedCode = transpliedCode.replace(/(m\[p\]\+\+\;){2,}/g, (match) => {
+                    const consecutive = match.replace(/m\[p\]\+\+;/g, "_").length;
+                    return `m[p]+=${consecutive};`;
+                });
+            }
+        }
+
+        // m[p]--;m[p]--; => m[p]+=2; m[p]--;x3 => m[p]+=3
+        while (!0) {
+            if (!transpliedCode.includes("m[p]--;m[p]--;")) {
+                break;
+            }else {
+                transpliedCode = transpliedCode.replace(/(m\[p\]\-\-\;){2,}/g, (match) => {
+                    const consecutive = match.replace(/m\[p\]\-\-;/g, "_").length;
+                    return `m[p]-=${consecutive};`;
+                });
+            }
+        }
+
+        // p++;p++; => p+=2; p++;x3 => p+=3
+        while (!0) {
+            if (!transpliedCode.includes("p++;p++;")) {
+                break;
+            }else {
+                transpliedCode = transpliedCode.replace(/(p\+\+\;){2,}/g, (match) => {
+                    const consecutive = match.replace(/p\+\+;/g, "_").length;
+                    return `p+=${consecutive};`;
+                });
+            }
+        }
+
+        // p--;p--; => p+=2; p--;x3 => p+=3
+        while (!0) {
+            if (!transpliedCode.includes("p--;p--;")) {
+                break;
+            }else {
+                transpliedCode = transpliedCode.replace(/(p\-\-\;){2,}/g, (match) => {
+                    const consecutive = match.replace(/p\-\-;/g, "_").length;
+                    return `p-=${consecutive};`;
+                });
+            }
+        }
+
+        return transpliedCode;
     }
 }
