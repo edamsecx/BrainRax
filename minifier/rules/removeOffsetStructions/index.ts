@@ -1,4 +1,5 @@
 import type { afterOptSource } from "../../optimization";
+import { parseToSafeSource } from "../../helper/parseToSafeSource";
 
 /**
  *  Remove offsetting constructions
@@ -43,5 +44,5 @@ export function RemoveOffsetStructions(source: afterOptSource): afterOptSource {
     }
   }
 
-  return $.split("") as unknown as afterOptSource;
+  return parseToSafeSource($);
 }

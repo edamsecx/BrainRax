@@ -1,4 +1,5 @@
 import { Optimization, type afterOptSource } from "./optimization";
+import { OptReset } from "./rules/optReset";
 import { RemoveOffsetStructions } from "./rules/removeOffsetStructions";
 
 export class Minifier {
@@ -12,6 +13,7 @@ export class Minifier {
     let $ = this.safeSource;
 
     $ = RemoveOffsetStructions($);
+    $ = OptReset($);
 
     return "";
   }
