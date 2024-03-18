@@ -10,6 +10,7 @@ Created-by @amex2189
   - Easy Syntax
 - **Minifiy**
 - **Optimization**
+- **Emulator**
 
 ```asm
 # BrainRax
@@ -27,7 +28,5 @@ else
 endif
 # and more
 ```
-
-Please prepare **Separate execution environment**.
 
 [https://ja.wikipedia.org/wiki/Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck)

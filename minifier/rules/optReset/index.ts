@@ -8,21 +8,21 @@ import type { afterOptSource } from "../../optimization";
  */
 
 const optMaps = [
-    (source: afterOptSource): afterOptSource => {
-        let $ = source.join("");
+  (source: afterOptSource): afterOptSource => {
+    let $ = source.join("");
 
-        $ = $.replace(/\[\-+\]/g, "[-]");
+    $ = $.replace(/\[\-+\]/g, "[-]");
 
-        return parseToSafeSource($);
-    },
-    (source: afterOptSource): afterOptSource => {
-        let $ = source.join("");
+    return parseToSafeSource($);
+  },
+  (source: afterOptSource): afterOptSource => {
+    let $ = source.join("");
 
-        $ = $.replace(/\[\++\]/g, "[+]");
+    $ = $.replace(/\[\++\]/g, "[+]");
 
-        return parseToSafeSource($);
-    }
-]
+    return parseToSafeSource($);
+  },
+];
 
 export function OptReset(source: afterOptSource): afterOptSource {
   for (let i = 0, optMapsLen = optMaps.length; i < optMapsLen; i++) {
