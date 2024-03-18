@@ -8,7 +8,7 @@ import { parseToSafeSource } from "../../helper/parseToSafeSource";
  *  as /(\+-|-\+|<>|><|^(<|>)$)/g
  */
 
-const badExpr = ["<>", "><", "+-", "-+"] as const;
+const badExpr = ["<>", "><", "+-", "-+", "[[]]"] as const;
 
 export function RemoveOffsetStructions(source: afterOptSource): afterOptSource {
   let $ = source.join("");

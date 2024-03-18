@@ -1,6 +1,6 @@
 # BrainRax
 
-BrainFuck Collection | high-level programming language, minifier, optimizer
+BrainFuck Collection | high-level programming language, minifier, optimizer, emulator
 
 Created-by @amex2189
 

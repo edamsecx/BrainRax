@@ -2,7 +2,7 @@
  * Optimization for minifier
  * as /[^\]\[,.+-><]/g
  */
-const exprWords = ["+", "-", "<", ">", ".", ","] as const;
+const exprWords = ["+", "-", "<", ">", "[", "]", ".", ","] as const;
 type exceptionWord = string;
 
 export type beforeOptSource = ((typeof exprWords)[number] | exceptionWord)[];
@@ -13,13 +13,12 @@ export function Optimization(source: beforeOptSource): afterOptSource {
 
   for (let i = 0; i < sourceLength; i++) {
     const word = source[i];
-    if (isExprWord(word)) {
-      source.splice(i, 1);
-      i--;
+    if (!isExprWord(word)) {
+      source[i] = "";
     }
   }
 
-  return source as unknown as afterOptSource;
+  return source.join("").split("") as unknown as afterOptSource;
 }
 
 function isExprWord(word: beforeOptSource[number]) {
