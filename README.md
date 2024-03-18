@@ -3,7 +3,7 @@ BrainFuck Collection | high-level programming language, minifier, optimizer
 
 - High Level Lang
   - Compiler
-    - Minifier
+    - Minifiy
     - Optimization
   - Easy Syntax
 
