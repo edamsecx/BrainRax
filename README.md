@@ -1,5 +1,8 @@
 # BrainRax
+
 BrainFuck Collection | high-level programming language, minifier, optimizer
+
+Created-by @amex2189
 
 - High Level Lang
   - Compiler
@@ -25,5 +28,5 @@ endif
 ```
 
 Please prepare **Separate execution environment**.
-  
+
 [https://ja.wikipedia.org/wiki/Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck)
