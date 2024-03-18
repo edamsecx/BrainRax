@@ -1,8 +1,12 @@
+/**
+ * Optimization for minifier
+ * as /[^\]\[,.+-><]/g
+ */
 const exprWords = ["+", "-", "<", ">", ".", ","] as const;
 type exceptionWord = string;
 
 export type beforeOptSource = ((typeof exprWords)[number] | exceptionWord)[];
-export type afterOptSource = (typeof exprWords)[];
+export type afterOptSource = (typeof exprWords)[number][];
 
 export function Optimization(source: beforeOptSource): afterOptSource {
   const sourceLength = source.length;

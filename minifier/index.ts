@@ -9,7 +9,6 @@ export class Minifier {
   }
 
   minify(): string {
-
     let $ = this.safeSource;
 
     $ = RemoveOffsetStructions($);
