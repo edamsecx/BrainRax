@@ -3,7 +3,7 @@ name: Bun Test Runner
 on: push
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
