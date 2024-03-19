@@ -1,4 +1,4 @@
-name: Example
+name: Bun Test Runner
 
 on: pull_request
 
